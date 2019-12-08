@@ -1,13 +1,16 @@
 <template>
   <div class="container">
     <div class="row">
+      <!-- login -->
       <div class="col-md-6 mt-5 mx-auto">
         <form v-on:submit.prevent="login">
           <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+          <!-- email 입력 -->
           <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" v-model="email" class="form-control" name="email" placeholder="Enter email">
           </div>
+          <!-- password 입력 -->
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" v-model="password" class="form-control" name="password" placeholder="Password">

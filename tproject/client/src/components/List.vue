@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
 
+    <!-- Todo list -->
     <div id="todo-list-example" class="container">
       <div class="row">
         <div class="col-md-6 mx-auto">

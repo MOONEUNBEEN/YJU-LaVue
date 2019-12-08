@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,37 +11,32 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\JWTManager as JWT;
-
 class UserController extends Controller
-{   
-
+{
+    /* 회원가입 */
     public function register(Request $request)
     {
             $validator = Validator::make($request->json()->all() , [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6', 
+            'password' => 'required|string|min:6',
         ]);
-
         if($validator->fails()){
                 return response()->json($validator->errors()->toJson(), 400);
         }
-
         $user = User::create([
             'name' => $request->json()->get('name'),
             'email' => $request->json()->get('email'),
             'password' => Hash::make($request->json()->get('password')),
         ]);
-
         $token = JWTAuth::fromUser($user);
-
         return response()->json(compact('user','token'),201);
     }
-    
+
+    /* 로그인 */
     public function login(Request $request)
     {
         $credentials = $request->json()->all();
-
         try {
             if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 400);
@@ -51,12 +44,10 @@ class UserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-
         return response()->json( compact('token') );
     }
 
-    
-
+    /* 사용자 정보 가져오기 */
     public function getAuthenticatedUser()
     {
         try {
@@ -72,5 +63,4 @@ class UserController extends Controller
         }
         return response()->json(compact('user'));
     }
-
 }

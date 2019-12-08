@@ -1,4 +1,5 @@
 <template>
+  <!-- profile -->
   <div class="container">
     <div class="jumbotron mt-5">
       <div class="col-sm-8 mx-auto">
@@ -6,10 +7,12 @@
       </div>
       <table class="table col-md-6 mx-auto">
         <tbody>
+          <!-- user name -->
           <tr>
             <td>Name</td>
             <td>{{whole_name}}</td>
           </tr>
+          <!-- user email -->
           <tr>
             <td>Email</td>
             <td>{{email}}</td>
